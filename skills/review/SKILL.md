@@ -1,6 +1,6 @@
 ---
 name: review
-description: Orchestrate iterative review and improvement cycles on the current branch using a coding worker, parallel reviewers, and CI verification.
+description: Orchestrate iterative review and improvement cycles on the current branch using an improvement agent, parallel review agents, and CI verification.
 ---
 
 # Review Orchestrator
@@ -13,9 +13,9 @@ You are a **pure orchestrator**. Your only job is to run a review and improvemen
 
 ## Model Assignment
 
-- Improvement worker: `gpt-5.3-codex` with `xhigh` reasoning.
-- Reviewer 1: `gpt-5.3-codex` with `xhigh` reasoning.
-- Reviewer 2: `gpt-5.4` with `xhigh` reasoning.
+- Improvement Agent (`gpt-5.3-codex`) with `xhigh` reasoning.
+- Review Agent 1 (`gpt-5.3-codex`) with `xhigh` reasoning.
+- Review Agent 2 (`gpt-5.4`) with `xhigh` reasoning.
 
 The objective of the branch is:
 
@@ -31,9 +31,9 @@ If a PR exists, collect all review comments and top-level PR comments. Format th
 
 If no PR exists, proceed with an empty feedback section.
 
-## Step 2: Spawn the Improvement Worker
+## Step 2: Spawn the Improvement Agent
 
-Spawn one long-running improvement worker with these settings:
+Spawn one long-running Improvement Agent with these settings:
 
 - Model: `gpt-5.3-codex`
 - Effort: `xhigh`
@@ -57,8 +57,8 @@ Get the latest commit SHA on the branch.
 
 Spawn **two review agents in parallel**:
 
-1. Reviewer 1: `gpt-5.3-codex` with `xhigh`
-2. Reviewer 2: `gpt-5.4` with `xhigh`
+1. Review Agent 1 (`gpt-5.3-codex`) with `xhigh`
+2. Review Agent 2 (`gpt-5.4`) with `xhigh`
 
 Use the same review prompt for both:
 
@@ -68,11 +68,11 @@ Use the same review prompt for both:
 >
 > $ARGUMENTS
 
-## Step 4: Feed Reviews to the Improvement Worker
+## Step 4: Feed Reviews to the Improvement Agent
 
 As each review agent returns its review, verify that it includes the commit SHA you provided. If a review does not include the SHA, discard it and re-run that reviewer.
 
-Feed each valid review to the improvement worker one at a time using the prompt below. Let the worker fix and push after each review.
+Feed each valid review to the Improvement Agent one at a time using the prompt below. Let the agent fix and push after each review.
 
 ### Address Review Prompt
 
@@ -82,11 +82,11 @@ Feed each valid review to the improvement worker one at a time using the prompt 
 
 ## Step 5: Repeat Review Cycles
 
-Once the improvement worker has addressed both reviews from a cycle, go back to Step 3 and start a new review cycle.
+Once the Improvement Agent has addressed both reviews from a cycle, go back to Step 3 and start a new review cycle.
 
 Repeat Steps 3-5 until:
 
-- the improvement worker has addressed everything it thinks should be addressed, and
+- the Improvement Agent has addressed everything it thinks should be addressed, and
 - the review agents are generally happy with the code
 
 Ensure the final code is pushed to the PR after each round of fixes.
@@ -106,12 +106,12 @@ You MUST run the `@codex-plugin:github-pr-green` skill now.
 
 Do NOT end the conversation, do NOT report final success to the user, and do NOT consider the task complete until CI is fully green.
 
-If tests fail, feed the failures back to the improvement worker to fix, push, and then run `@codex-plugin:github-pr-green` again until all checks pass or the CI skill conclusively reports unrelated blockers.
+If tests fail, feed the failures back to the Improvement Agent to fix, push, and then run `@codex-plugin:github-pr-green` again until all checks pass or the CI skill conclusively reports unrelated blockers.
 
 ## Important Notes
 
-- Always keep the improvement worker alive across the full lifecycle.
+- Always keep the Improvement Agent alive across the full lifecycle.
 - Run the two reviewers in parallel for efficiency.
-- Feed reviews to the improvement worker sequentially so fixes do not conflict.
-- Do not let the worker skip reviews. It should address each one thoughtfully.
+- Feed reviews to the Improvement Agent sequentially so fixes do not conflict.
+- Do not let the Improvement Agent skip reviews. It should address each one thoughtfully.
 - Do NOT stop after code is pushed. You must always complete Step 7 before finishing.

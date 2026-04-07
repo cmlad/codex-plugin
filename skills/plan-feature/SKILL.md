@@ -14,9 +14,9 @@ You are a **pure orchestrator**. Your only job is to spawn agents, pass informat
 
 ## Model Assignment
 
-- Planning worker: `gpt-5.3-codex` with `xhigh` reasoning.
-- Plan reviewer 1: `gpt-5.3-codex` with `xhigh` reasoning.
-- Plan reviewer 2: `gpt-5.4` with `xhigh` reasoning.
+- Planning Agent (`gpt-5.3-codex`) with `xhigh` reasoning.
+- Plan Review Agent 1 (`gpt-5.3-codex`) with `xhigh` reasoning.
+- Plan Review Agent 2 (`gpt-5.4`) with `xhigh` reasoning.
 
 The task from the user is:
 
@@ -32,15 +32,15 @@ If the user provides a Linear ticket ID or URL, use that directly. If they provi
 
 If you do find a Linear ticket, remember its ID. You will need it in Step 5 to save the plan.
 
-## Step 1: Spawn the Planning Worker
+## Step 1: Spawn the Planning Agent
 
-Spawn one long-running planning worker with these settings:
+Spawn one long-running Planning Agent with these settings:
 
 - Model: `gpt-5.3-codex`
 - Effort: `xhigh`
 - Ownership: draft and maintain `plan.md`
 
-Give it the planning prompt below. The worker writes to `plan.md` in the repository root as a working file during the design process. This file is scratch space until the plan is finalized.
+Give it the planning prompt below. The Planning Agent writes to `plan.md` in the repository root as a working file during the design process. This file is scratch space until the plan is finalized.
 
 ### Planning Prompt
 
@@ -61,10 +61,10 @@ Give it the planning prompt below. The worker writes to `plan.md` in the reposit
 
 ## Step 2: Review the Plan in Parallel
 
-Once the planning worker has written `plan.md`, spawn **two plan review agents in parallel**:
+Once the Planning Agent has written `plan.md`, spawn **two plan review agents in parallel**:
 
-1. Reviewer 1: `gpt-5.3-codex` with `xhigh`
-2. Reviewer 2: `gpt-5.4` with `xhigh`
+1. Plan Review Agent 1 (`gpt-5.3-codex`) with `xhigh`
+2. Plan Review Agent 2 (`gpt-5.4`) with `xhigh`
 
 Use the same review prompt for both reviewers:
 
@@ -87,9 +87,9 @@ Reviewer emphasis:
 - The `gpt-5.3-codex` reviewer should focus on implementation realism, repo fit, and missing concrete steps.
 - The `gpt-5.4` reviewer should focus on scope control, architectural risk, and missing edge cases.
 
-## Step 3: Feed Plan Reviews to the Planning Worker
+## Step 3: Feed Plan Reviews to the Planning Agent
 
-As each plan review agent returns feedback, feed the feedback to the planning worker one at a time using the prompt below. Let the planning worker update `plan.md` after each review.
+As each plan review agent returns feedback, feed the feedback to the Planning Agent one at a time using the prompt below. Let the Planning Agent update `plan.md` after each review.
 
 ### Address Plan Feedback Prompt
 
@@ -99,9 +99,9 @@ As each plan review agent returns feedback, feed the feedback to the planning wo
 
 ## Step 4: Repeat Plan Review Cycles
 
-Once the planning worker has addressed both reviews from a cycle, evaluate whether to continue:
+Once the Planning Agent has addressed both reviews from a cycle, evaluate whether to continue:
 
-- If the planning worker indicates the plan is complete and all valuable feedback has been addressed, proceed to Step 5.
+- If the Planning Agent indicates the plan is complete and all valuable feedback has been addressed, proceed to Step 5.
 - Otherwise, go back to Step 2 and start a new plan review cycle.
 
 The plan review loop should converge within 1-3 iterations. If it goes beyond 4 iterations, proceed to Step 5 with the current plan and note to the user that the plan may still need refinement.
@@ -132,9 +132,9 @@ Tell the user:
 
 ## Important Notes
 
-- You are the orchestrator, not the planner. Never take over the technical work from the planning worker.
+- You are the orchestrator, not the planner. Never take over the technical work from the Planning Agent.
 - If a Linear ticket exists, it is the source of truth for requirements. Pass its full context into every prompt where `$ARGUMENTS` appears.
 - Run the two reviewers in parallel for efficiency.
-- Feed review feedback to the planning worker sequentially so updates do not conflict.
-- Do not let the planning worker skip reviews. It should address each review thoughtfully.
+- Feed review feedback to the Planning Agent sequentially so updates do not conflict.
+- Do not let the Planning Agent skip reviews. It should address each review thoughtfully.
 - `plan.md` is a scratch file during planning. The final home for the plan is the Linear ticket when one exists.

@@ -1,6 +1,6 @@
 ---
 name: feature
-description: Orchestrate feature development with a planning worker, an implementation worker, iterative review cycles, and CI verification. Use when the user wants to develop a feature end-to-end.
+description: Orchestrate feature development with a planning agent, an implementation agent, iterative review cycles, and CI verification. Use when the user wants to develop a feature end-to-end.
 ---
 
 # Feature Development Orchestrator
@@ -10,13 +10,13 @@ You are a **pure orchestrator**. This skill composes two sub-skills to deliver a
 Model policy for the downstream skills:
 
 - `plan-feature`:
-  - planning worker: `gpt-5.3-codex` with `xhigh` reasoning
-  - plan reviewer 1: `gpt-5.3-codex` with `xhigh` reasoning
-  - plan reviewer 2: `gpt-5.4` with `xhigh` reasoning
+  - Planning Agent (`gpt-5.3-codex`) with `xhigh` reasoning
+  - Plan Review Agent 1 (`gpt-5.3-codex`) with `xhigh` reasoning
+  - Plan Review Agent 2 (`gpt-5.4`) with `xhigh` reasoning
 - `implement-feature`:
-  - implementation worker: `gpt-5.3-codex` with `xhigh` reasoning
-  - code reviewer 1: `gpt-5.3-codex` with `xhigh` reasoning
-  - code reviewer 2: `gpt-5.4` with `xhigh` reasoning
+  - Implementation Agent (`gpt-5.3-codex`) with `xhigh` reasoning
+  - Code Review Agent 1 (`gpt-5.3-codex`) with `xhigh` reasoning
+  - Code Review Agent 2 (`gpt-5.4`) with `xhigh` reasoning
 
 Follow these steps precisely:
 

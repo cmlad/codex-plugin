@@ -14,9 +14,9 @@ You are a **pure orchestrator**. Your only job is to spawn agents, pass informat
 
 ## Model Assignment
 
-- Implementation worker: `gpt-5.3-codex` with `xhigh` reasoning.
-- Code reviewer 1: `gpt-5.3-codex` with `xhigh` reasoning.
-- Code reviewer 2: `gpt-5.4` with `xhigh` reasoning.
+- Implementation Agent (`gpt-5.3-codex`) with `xhigh` reasoning.
+- Code Review Agent 1 (`gpt-5.3-codex`) with `xhigh` reasoning.
+- Code Review Agent 2 (`gpt-5.4`) with `xhigh` reasoning.
 
 The task from the user is:
 
@@ -36,15 +36,15 @@ If no plan is found from any source, tell the user to run `@codex-plugin:plan-fe
 
 Once you have the plan, proceed.
 
-## Step 1: Spawn the Implementation Worker
+## Step 1: Spawn the Implementation Agent
 
-Spawn one long-running implementation worker with these settings:
+Spawn one long-running Implementation Agent with these settings:
 
 - Model: `gpt-5.3-codex`
 - Effort: `xhigh`
 - Ownership: implementation, commits, pushes, and PR creation
 
-Give it the implementation prompt below, embedding the full plan text directly. Keep this worker alive through the full lifecycle. Once it creates or updates the PR, capture the PR URL.
+Give it the implementation prompt below, embedding the full plan text directly. Keep this agent alive through the full lifecycle. Once it creates or updates the PR, capture the PR URL.
 
 ### Implementation Prompt
 
@@ -64,8 +64,8 @@ Once the PR is up, get the latest commit SHA on the branch.
 
 Spawn **two review agents in parallel**:
 
-1. Reviewer 1: `gpt-5.3-codex` with `xhigh`
-2. Reviewer 2: `gpt-5.4` with `xhigh`
+1. Code Review Agent 1 (`gpt-5.3-codex`) with `xhigh`
+2. Code Review Agent 2 (`gpt-5.4`) with `xhigh`
 
 Use the same code review prompt for both:
 
@@ -80,11 +80,11 @@ Reviewer emphasis:
 - The `gpt-5.3-codex` reviewer should focus on implementation correctness, regression risk, and test coverage.
 - The `gpt-5.4` reviewer should focus on maintainability, scope control, and whether the patch solves the right problem without overreach.
 
-## Step 3: Feed Code Reviews to the Implementation Worker
+## Step 3: Feed Code Reviews to the Implementation Agent
 
 As each review agent returns its review, verify that it includes the commit SHA you provided. If a review does not include the SHA, discard it and re-run that reviewer.
 
-Feed each valid review to the implementation worker one at a time using the prompt below. Let the worker fix and push after each review.
+Feed each valid review to the Implementation Agent one at a time using the prompt below. Let the agent fix and push after each review.
 
 ### Address Review Prompt
 
@@ -94,11 +94,11 @@ Feed each valid review to the implementation worker one at a time using the prom
 
 ## Step 4: Repeat Code Review Cycles
 
-Once the implementation worker has addressed both reviews from a cycle, go back to Step 2 and start a new review cycle.
+Once the Implementation Agent has addressed both reviews from a cycle, go back to Step 2 and start a new review cycle.
 
 Repeat Steps 2-4 until:
 
-- the implementation worker has addressed everything it thinks should be addressed, and
+- the Implementation Agent has addressed everything it thinks should be addressed, and
 - the review agents are generally happy with the code
 
 Ensure the final code is pushed to the PR after each round of fixes.
@@ -118,13 +118,13 @@ You MUST run the `@codex-plugin:github-pr-green` skill now.
 
 Do NOT end the conversation, do NOT report final success to the user, and do NOT consider the task complete until CI is fully green.
 
-If tests fail, feed the failures back to the implementation worker to fix, push, and then run `@codex-plugin:github-pr-green` again until all checks pass or the CI skill conclusively reports unrelated blockers.
+If tests fail, feed the failures back to the Implementation Agent to fix, push, and then run `@codex-plugin:github-pr-green` again until all checks pass or the CI skill conclusively reports unrelated blockers.
 
 ## Important Notes
 
-- You are the orchestrator, not the implementer. Never take over the technical work from the implementation worker.
-- Always keep the implementation worker alive across the full lifecycle.
+- You are the orchestrator, not the implementer. Never take over the technical work from the Implementation Agent.
+- Always keep the Implementation Agent alive across the full lifecycle.
 - Run the two reviewers in parallel for efficiency.
-- Feed reviews to the implementation worker sequentially so fixes do not conflict.
-- Do not let the implementation worker skip reviews. It should address each one thoughtfully.
+- Feed reviews to the Implementation Agent sequentially so fixes do not conflict.
+- Do not let the Implementation Agent skip reviews. It should address each one thoughtfully.
 - Do NOT stop after pushing code. You must always complete Step 6 before finishing.
