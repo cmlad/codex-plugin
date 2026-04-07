@@ -6,7 +6,7 @@ This repository packages the migrated planning, implementation, review, and CI w
 
 - Codex plugin manifest: [`.codex-plugin/plugin.json`](/home/zh/src/codex-plugin/.codex-plugin/plugin.json)
 - Migrated skills under [`skills/`](/home/zh/src/codex-plugin/skills)
-- Bundled MCP examples in [`.mcp.json`](/home/zh/src/codex-plugin/.mcp.json)
+- No bundled MCP servers. This plugin ships skills only.
 - Optional external-agent bridge script: [`scripts/claude-print.sh`](/home/zh/src/codex-plugin/scripts/claude-print.sh)
 
 ## Install locally

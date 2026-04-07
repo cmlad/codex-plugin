@@ -1,6 +1,6 @@
 {
   "name": "codex-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Codex-native migration of shared feature planning, implementation, review, and CI workflows.",
   "author": {
     "name": "cmlad",
@@ -13,12 +13,10 @@
   "keywords": [
     "codex",
     "skills",
-    "mcp",
     "review",
     "feature"
   ],
   "skills": "./skills/",
-  "mcpServers": "./.mcp.json",
   "interface": {
     "displayName": "Codex Workflows",
     "shortDescription": "Shared feature, review, and CI workflows for Codex.",
@@ -27,8 +25,7 @@
     "category": "Developer Tools",
     "capabilities": [
       "Interactive",
-      "Write",
-      "MCP"
+      "Write"
     ],
     "websiteURL": "https://github.com/cmlad/codex-plugin",
     "privacyPolicyURL": "https://github.com/cmlad/codex-plugin",
