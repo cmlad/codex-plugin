@@ -1,9 +1,9 @@
 ---
-name: github-pr-green
-description: Poll GitHub PR checks, classify failures, fix PR-caused breakages, and retry unrelated flakes until the PR is green or conclusively blocked.
+name: pr-tests
+description: Poll GitHub PR checks, classify failures, fix PR-caused breakages, and retry unrelated flakes until the PR tests are green or conclusively blocked.
 ---
 
-# Get PR Green
+# PR Tests
 
 Stay in the loop until one of these is true:
 
