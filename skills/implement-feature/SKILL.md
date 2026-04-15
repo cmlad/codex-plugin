@@ -114,11 +114,11 @@ Once the review loop converges, tell the user:
 
 ## Step 6: Verify CI (MANDATORY - DO NOT SKIP)
 
-You MUST run the `@codex-plugin:pr-tests` skill now.
+You MUST run the `@codex-plugin:pr-green` skill now.
 
 Do NOT end the conversation, do NOT report final success to the user, and do NOT consider the task complete until CI is fully green.
 
-If tests fail, feed the failures back to the Implementation Agent to fix, push, and then run `@codex-plugin:pr-tests` again until all checks pass or the CI skill conclusively reports unrelated blockers.
+If checks fail or `pr-green` reports actionable unresolved review feedback, feed that back to the Implementation Agent to fix, push, and then run `@codex-plugin:pr-green` again until all checks pass or the CI skill conclusively reports unrelated blockers.
 
 ## Important Notes
 
