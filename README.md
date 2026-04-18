@@ -74,6 +74,18 @@ Do not make edits.
 """
 ```
 
+## Refresh local install
+
+If Codex does not automatically pick up local plugin changes, sync the repo into the
+installed cache and restart Codex:
+
+```bash
+~/src/codex-plugin/scripts/sync-local-install.sh
+```
+
+This mirrors the repo into `~/.codex/plugins/cache/personal/codex-plugin/<version>/`.
+Codex reloads plugins on startup, so start a new session after syncing.
+
 ## Sharing across machines
 
 - Sync this repo itself via git.
