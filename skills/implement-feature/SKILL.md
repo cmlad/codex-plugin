@@ -10,7 +10,7 @@ You are a **pure orchestrator**. Your only job is to spawn agents, pass informat
 - **DO NOT** read, browse, or explore repository source code yourself.
 - **DO NOT** investigate the codebase, run tests, or attempt implementation work.
 - **DO NOT** make architectural decisions or offer technical opinions yourself. That is the agents' job.
-- Your role is limited to: obtaining the plan, formulating prompts for agents, relaying outputs between agents, and reporting progress to the user.
+- Your role is limited to: obtaining the plan, formulating prompts for agents, relaying outputs between agents, keeping PR metadata in sync after pushes, and reporting progress to the user.
 
 ## Model Assignment
 
@@ -44,11 +44,13 @@ Spawn one long-running Implementation Agent with these settings:
 - Effort: `xhigh`
 - Ownership: implementation, commits, pushes, and PR creation
 
-Give it the implementation prompt below, embedding the full plan text directly. Keep this agent alive through the full lifecycle. Once it creates or updates the PR, capture the PR URL.
+Give it the implementation prompt below, embedding the full plan text directly. Keep this agent alive through the full lifecycle. Once it creates or updates the PR, capture the PR URL and PR number.
 
 ### Implementation Prompt
 
 > Implement the following plan. Read it carefully and follow it closely. Create or update a PR when the implementation is complete.
+>
+> Every time you push code in this workflow, include a refreshed PR description draft that the orchestrator can apply immediately. That draft must reflect the current implementation, validation, and any remaining follow-ups.
 >
 > The high-level objective is:
 >
@@ -92,7 +94,15 @@ Feed each valid review to the Implementation Agent one at a time using the promp
 >
 > <REVIEW OUTCOME from the reviewer>
 
-## Step 4: Repeat Code Review Cycles
+## Step 4: Refresh the PR Description After Every Push
+
+Whenever the Implementation Agent pushes code, immediately update the PR description before continuing to the next review or CI step.
+
+- Use the latest PR description draft provided by the Implementation Agent.
+- Do this after the initial PR creation or update and after every subsequent fix push.
+- If the Implementation Agent does not provide fresh PR description text for a push, ask it for one before proceeding.
+
+## Step 5: Repeat Code Review Cycles
 
 Once the Implementation Agent has addressed both reviews from a cycle, go back to Step 2 and start a new review cycle.
 
@@ -101,24 +111,24 @@ Repeat Steps 2-4 until:
 - the Implementation Agent has addressed everything it thinks should be addressed, and
 - the review agents are generally happy with the code
 
-Ensure the final code is pushed to the PR after each round of fixes.
+Ensure the final code is pushed to the PR and the PR description is refreshed after each round of fixes.
 
 The code review cycle should usually converge within 2-4 iterations. If it goes beyond 5, stop and report the current state to the user.
 
-## Step 5: Report Results
+## Step 6: Report Results
 
 Once the review loop converges, tell the user:
 
 - how many code review cycles were completed
 - the PR URL
 
-## Step 6: Verify CI (MANDATORY - DO NOT SKIP)
+## Step 7: Verify CI (MANDATORY - DO NOT SKIP)
 
 You MUST run the `@codex-plugin:pr-green` skill now.
 
 Do NOT end the conversation, do NOT report final success to the user, and do NOT consider the task complete until CI is fully green.
 
-If checks fail or `pr-green` reports actionable unresolved review feedback, feed that back to the Implementation Agent to fix, push, and then run `@codex-plugin:pr-green` again until all checks pass or the CI skill conclusively reports unrelated blockers.
+If checks fail or `pr-green` reports actionable unresolved review feedback, feed that back to the Implementation Agent to fix, push, perform Step 4, and then run `@codex-plugin:pr-green` again until all checks pass or the CI skill conclusively reports unrelated blockers.
 
 ## Important Notes
 
@@ -127,4 +137,4 @@ If checks fail or `pr-green` reports actionable unresolved review feedback, feed
 - Run the two reviewers in parallel for efficiency.
 - Feed reviews to the Implementation Agent sequentially so fixes do not conflict.
 - Do not let the Implementation Agent skip reviews. It should address each one thoughtfully.
-- Do NOT stop after pushing code. You must always complete Step 6 before finishing.
+- Do NOT stop after pushing code. You must always complete Step 7 before finishing.

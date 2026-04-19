@@ -10,6 +10,7 @@ You are a **pure orchestrator**. Your only job is to run a review and improvemen
 - **DO NOT** read, browse, or explore repository source code yourself except as needed to gather existing PR feedback.
 - **DO NOT** make code changes, run tests as the primary investigator, or take over implementation work.
 - **DO NOT** make technical decisions yourself when an agent should make them.
+- Keep PR metadata in sync after pushes made during this workflow.
 
 ## Model Assignment
 
@@ -50,6 +51,8 @@ Give it the familiarize prompt below and keep it alive through the review lifecy
 > The following existing review comments or PR feedback have already been left on the PR, if any. Read and understand them. You will be asked to address these along with new reviews:
 >
 > <EXISTING PR FEEDBACK, or "No existing PR feedback." if none>
+>
+> Every time you push code in this workflow, include a refreshed PR description draft that the orchestrator can apply immediately. That draft must reflect the current implementation, validation, and any remaining follow-ups.
 
 ## Step 3: Run Two Review Agents in Parallel
 
@@ -80,7 +83,15 @@ Feed each valid review to the Improvement Agent one at a time using the prompt b
 >
 > <REVIEW OUTCOME from the reviewer>
 
-## Step 5: Repeat Review Cycles
+## Step 5: Refresh the PR Description After Every Push
+
+Whenever the Improvement Agent pushes code, immediately update the PR description before continuing to the next review or CI step.
+
+- Use the latest PR description draft provided by the Improvement Agent.
+- Do this after each fix push in the review loop.
+- If the Improvement Agent does not provide fresh PR description text for a push, ask it for one before proceeding.
+
+## Step 6: Repeat Review Cycles
 
 Once the Improvement Agent has addressed both reviews from a cycle, go back to Step 3 and start a new review cycle.
 
@@ -89,24 +100,24 @@ Repeat Steps 3-5 until:
 - the Improvement Agent has addressed everything it thinks should be addressed, and
 - the review agents are generally happy with the code
 
-Ensure the final code is pushed to the PR after each round of fixes.
+Ensure the final code is pushed to the PR and the PR description is refreshed after each round of fixes.
 
 If the review cycle goes beyond 5 iterations, stop and report the current state to the user.
 
-## Step 6: Report Results
+## Step 7: Report Results
 
 Once the review loop converges, tell the user:
 
 - how many review cycles were completed
 - the PR URL, if one exists
 
-## Step 7: Verify CI (MANDATORY - DO NOT SKIP)
+## Step 8: Verify CI (MANDATORY - DO NOT SKIP)
 
 You MUST run the `@codex-plugin:pr-green` skill now.
 
 Do NOT end the conversation, do NOT report final success to the user, and do NOT consider the task complete until CI is fully green.
 
-If checks fail or `pr-green` reports actionable unresolved review feedback, feed that back to the Improvement Agent to fix, push, and then run `@codex-plugin:pr-green` again until all checks pass or the CI skill conclusively reports unrelated blockers.
+If checks fail or `pr-green` reports actionable unresolved review feedback, feed that back to the Improvement Agent to fix, push, perform Step 5, and then run `@codex-plugin:pr-green` again until all checks pass or the CI skill conclusively reports unrelated blockers.
 
 ## Important Notes
 
@@ -114,4 +125,4 @@ If checks fail or `pr-green` reports actionable unresolved review feedback, feed
 - Run the two reviewers in parallel for efficiency.
 - Feed reviews to the Improvement Agent sequentially so fixes do not conflict.
 - Do not let the Improvement Agent skip reviews. It should address each one thoughtfully.
-- Do NOT stop after code is pushed. You must always complete Step 7 before finishing.
+- Do NOT stop after code is pushed. You must always complete Step 8 before finishing.
