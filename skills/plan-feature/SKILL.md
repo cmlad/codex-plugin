@@ -14,8 +14,8 @@ You are a **pure orchestrator**. Your only job is to spawn agents, pass informat
 
 ## Model Assignment
 
-- Planning Agent (`gpt-5.3-codex`) with `xhigh` reasoning.
-- Plan Review Agent 1 (`gpt-5.3-codex`) with `xhigh` reasoning.
+- Planning Agent (`gpt-5.5`) with `xhigh` reasoning.
+- Plan Review Agent 1 (`gpt-5.5`) with `xhigh` reasoning.
 - Plan Review Agent 2 (`gpt-5.4`) with `xhigh` reasoning.
 
 The task from the user is:
@@ -36,7 +36,7 @@ If you do find a Linear ticket, remember its ID. You will need it in Step 5 to s
 
 Spawn one long-running Planning Agent with these settings:
 
-- Model: `gpt-5.3-codex`
+- Model: `gpt-5.5`
 - Effort: `xhigh`
 - Ownership: draft and maintain `plan.md`
 
@@ -63,7 +63,7 @@ Give it the planning prompt below. The Planning Agent writes to `plan.md` in the
 
 Once the Planning Agent has written `plan.md`, spawn **two plan review agents in parallel**:
 
-1. Plan Review Agent 1 (`gpt-5.3-codex`) with `xhigh`
+1. Plan Review Agent 1 (`gpt-5.5`) with `xhigh`
 2. Plan Review Agent 2 (`gpt-5.4`) with `xhigh`
 
 Use the same review prompt for both reviewers:
@@ -84,7 +84,7 @@ Use the same review prompt for both reviewers:
 
 Reviewer emphasis:
 
-- The `gpt-5.3-codex` reviewer should focus on implementation realism, repo fit, and missing concrete steps.
+- The `gpt-5.5` reviewer should focus on implementation realism, repo fit, and missing concrete steps.
 - The `gpt-5.4` reviewer should focus on scope control, architectural risk, and missing edge cases.
 
 ## Step 3: Feed Plan Reviews to the Planning Agent

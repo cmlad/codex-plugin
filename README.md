@@ -43,7 +43,7 @@ Write that to `~/.agents/plugins/marketplace.json`, then open Codex and use `/pl
 Suggested pattern:
 
 ```toml
-model = "gpt-5.4"
+model = "gpt-5.5"
 approval_policy = "on-request"
 sandbox_mode = "workspace-write"
 
@@ -54,8 +54,8 @@ max_depth = 1
 
 Default workflow model policy in this plugin:
 
-- Main coding/planning agent: `gpt-5.3-codex` with `xhigh` reasoning
-- Review agent 1: `gpt-5.3-codex` with `xhigh` reasoning
+- Main coding/planning agent: `gpt-5.5` with `xhigh` reasoning
+- Review agent 1: `gpt-5.5` with `xhigh` reasoning
 - Review agent 2: `gpt-5.4` with `xhigh` reasoning
 
 3. Put custom agents in `~/.codex/agents/`.

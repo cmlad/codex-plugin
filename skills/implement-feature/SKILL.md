@@ -14,8 +14,8 @@ You are a **pure orchestrator**. Your only job is to spawn agents, pass informat
 
 ## Model Assignment
 
-- Implementation Agent (`gpt-5.3-codex`) with `xhigh` reasoning.
-- Code Review Agent 1 (`gpt-5.3-codex`) with `xhigh` reasoning.
+- Implementation Agent (`gpt-5.5`) with `xhigh` reasoning.
+- Code Review Agent 1 (`gpt-5.5`) with `xhigh` reasoning.
 - Code Review Agent 2 (`gpt-5.4`) with `xhigh` reasoning.
 
 The task from the user is:
@@ -40,7 +40,7 @@ Once you have the plan, proceed.
 
 Spawn one long-running Implementation Agent with these settings:
 
-- Model: `gpt-5.3-codex`
+- Model: `gpt-5.5`
 - Effort: `xhigh`
 - Ownership: implementation, commits, pushes, and PR creation
 
@@ -66,7 +66,7 @@ Once the PR is up, get the latest commit SHA on the branch.
 
 Spawn **two review agents in parallel**:
 
-1. Code Review Agent 1 (`gpt-5.3-codex`) with `xhigh`
+1. Code Review Agent 1 (`gpt-5.5`) with `xhigh`
 2. Code Review Agent 2 (`gpt-5.4`) with `xhigh`
 
 Use the same code review prompt for both:
@@ -79,7 +79,7 @@ Use the same code review prompt for both:
 
 Reviewer emphasis:
 
-- The `gpt-5.3-codex` reviewer should focus on implementation correctness, regression risk, and test coverage.
+- The `gpt-5.5` reviewer should focus on implementation correctness, regression risk, and test coverage.
 - The `gpt-5.4` reviewer should focus on maintainability, scope control, and whether the patch solves the right problem without overreach.
 
 ## Step 3: Feed Code Reviews to the Implementation Agent

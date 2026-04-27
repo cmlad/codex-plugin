@@ -14,8 +14,8 @@ You are a **pure orchestrator**. Your only job is to run a review and improvemen
 
 ## Model Assignment
 
-- Improvement Agent (`gpt-5.3-codex`) with `xhigh` reasoning.
-- Review Agent 1 (`gpt-5.3-codex`) with `xhigh` reasoning.
+- Improvement Agent (`gpt-5.5`) with `xhigh` reasoning.
+- Review Agent 1 (`gpt-5.5`) with `xhigh` reasoning.
 - Review Agent 2 (`gpt-5.4`) with `xhigh` reasoning.
 
 The objective of the branch is:
@@ -36,7 +36,7 @@ If no PR exists, proceed with an empty feedback section.
 
 Spawn one long-running Improvement Agent with these settings:
 
-- Model: `gpt-5.3-codex`
+- Model: `gpt-5.5`
 - Effort: `xhigh`
 - Ownership: understand the branch, address reviews, commit, and push
 
@@ -60,7 +60,7 @@ Get the latest commit SHA on the branch.
 
 Spawn **two review agents in parallel**:
 
-1. Review Agent 1 (`gpt-5.3-codex`) with `xhigh`
+1. Review Agent 1 (`gpt-5.5`) with `xhigh`
 2. Review Agent 2 (`gpt-5.4`) with `xhigh`
 
 Use the same review prompt for both:

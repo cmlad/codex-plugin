@@ -10,12 +10,12 @@ You are a **pure orchestrator**. This skill composes two sub-skills to deliver a
 Model policy for the downstream skills:
 
 - `plan-feature`:
-  - Planning Agent (`gpt-5.3-codex`) with `xhigh` reasoning
-  - Plan Review Agent 1 (`gpt-5.3-codex`) with `xhigh` reasoning
+  - Planning Agent (`gpt-5.5`) with `xhigh` reasoning
+  - Plan Review Agent 1 (`gpt-5.5`) with `xhigh` reasoning
   - Plan Review Agent 2 (`gpt-5.4`) with `xhigh` reasoning
 - `implement-feature`:
-  - Implementation Agent (`gpt-5.3-codex`) with `xhigh` reasoning
-  - Code Review Agent 1 (`gpt-5.3-codex`) with `xhigh` reasoning
+  - Implementation Agent (`gpt-5.5`) with `xhigh` reasoning
+  - Code Review Agent 1 (`gpt-5.5`) with `xhigh` reasoning
   - Code Review Agent 2 (`gpt-5.4`) with `xhigh` reasoning
 
 Follow these steps precisely:
