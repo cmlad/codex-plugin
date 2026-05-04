@@ -7,7 +7,9 @@ This repository packages the migrated planning, implementation, review, and CI w
 - Codex plugin manifest: [`.codex-plugin/plugin.json`](/home/zh/src/codex-plugin/.codex-plugin/plugin.json)
 - Migrated skills under [`skills/`](/home/zh/src/codex-plugin/skills)
 - No bundled MCP servers. This plugin ships skills only.
-- Optional external-agent bridge script: [`scripts/claude-print.sh`](/home/zh/src/codex-plugin/scripts/claude-print.sh)
+- Optional external-agent bridge scripts:
+  - [`scripts/claude-print.sh`](/home/zh/src/codex-plugin/scripts/claude-print.sh)
+  - [`scripts/claude-review.sh`](/home/zh/src/codex-plugin/scripts/claude-review.sh)
 
 ## Install locally
 
@@ -97,4 +99,6 @@ Codex reloads plugins on startup, so start a new session after syncing.
 
 This plugin now assumes review and implementation loops stay entirely inside Codex.
 
-If you ever want an external model cross-check later, keep it behind a narrow wrapper and treat it as an external tool, not a native subagent.
+The `claude-review` skill is an opt-in external cross-check. It keeps Claude behind
+[`scripts/claude-review.sh`](/home/zh/src/codex-plugin/scripts/claude-review.sh)
+and treats the result as external review output, not a native subagent.
