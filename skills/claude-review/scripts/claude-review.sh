@@ -97,6 +97,9 @@ fi
 if [[ -z "$PLAN_TEXT" ]]; then
   if [[ -n "$PLAN_FILE" ]]; then
     if [[ "$PLAN_FILE" == "-" ]]; then
+      if [[ -t 0 ]]; then
+        die "--plan-file - requires plan text on stdin; use --plan for inline text"
+      fi
       PLAN_TEXT="$(cat)"
     else
       [[ -f "$PLAN_FILE" ]] || die "plan file not found: $PLAN_FILE"
