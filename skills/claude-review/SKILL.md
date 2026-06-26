@@ -29,11 +29,15 @@ For `plan.md`:
 bash <skill-dir>/scripts/claude-review.sh --plan-file plan.md
 ```
 
-For an inline or externally fetched plan, pass it via stdin:
+For an inline or externally fetched plan, pass it as an argument:
 
 ```bash
-printf '%s\n' "$PLAN_TEXT" | bash <skill-dir>/scripts/claude-review.sh --plan-file -
+bash <skill-dir>/scripts/claude-review.sh --plan "$PLAN_TEXT"
 ```
+
+Only use `--plan-file -` when plan text is actually piped into the wrapper.
+The wrapper fails fast instead of waiting when `--plan-file -` is run from an
+interactive stdin.
 
 If the user specifies a base branch or ref, pass it explicitly:
 
