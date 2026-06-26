@@ -1,15 +1,15 @@
-# codex-plugin
+# chris-plugin
 
-This repository packages the migrated planning, implementation, review, and CI workflows as a Codex plugin.
+This repository packages the migrated planning, implementation, review, and CI workflows as the `chris-plugin` Codex plugin.
 
 ## What is included
 
-- Codex plugin manifest: [`.codex-plugin/plugin.json`](/home/zh/src/codex-plugin/.codex-plugin/plugin.json)
-- Migrated skills under [`skills/`](/home/zh/src/codex-plugin/skills)
+- Codex plugin manifest: [`.codex-plugin/plugin.json`](.codex-plugin/plugin.json)
+- Migrated skills under [`skills/`](skills)
 - No bundled MCP servers. This plugin ships skills only.
 - Optional external-agent bridge scripts:
-  - [`scripts/claude-print.sh`](/home/zh/src/codex-plugin/scripts/claude-print.sh)
-  - [`scripts/claude-review.sh`](/home/zh/src/codex-plugin/scripts/claude-review.sh)
+  - [`scripts/claude-print.sh`](scripts/claude-print.sh)
+  - [`scripts/claude-review.sh`](scripts/claude-review.sh)
 
 ## Install locally
 
@@ -23,10 +23,10 @@ This repository packages the migrated planning, implementation, review, and CI w
   },
   "plugins": [
     {
-      "name": "codex-plugin",
+      "name": "chris-plugin",
       "source": {
         "source": "local",
-        "path": "/home/zh/src/codex-plugin"
+        "path": "./src/codex-plugin"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -38,7 +38,11 @@ This repository packages the migrated planning, implementation, review, and CI w
 }
 ```
 
-Write that to `~/.agents/plugins/marketplace.json`, then open Codex and use `/plugins` to install `codex-plugin`.
+Write that to `~/.agents/plugins/marketplace.json`, then install `chris-plugin` from the personal marketplace:
+
+```bash
+codex plugin add chris-plugin@personal
+```
 
 2. Keep user-level defaults in `~/.codex/config.toml`.
 
@@ -85,7 +89,7 @@ installed cache and restart Codex:
 ~/src/codex-plugin/scripts/sync-local-install.sh
 ```
 
-This mirrors the repo into `~/.codex/plugins/cache/personal/codex-plugin/<version>/`.
+This mirrors the repo into `~/.codex/plugins/cache/personal/chris-plugin/<version>/`.
 Codex reloads plugins on startup, so start a new session after syncing.
 
 ## Sharing across machines
@@ -100,5 +104,5 @@ Codex reloads plugins on startup, so start a new session after syncing.
 This plugin now assumes review and implementation loops stay entirely inside Codex.
 
 The `claude-review` skill is an opt-in external cross-check. It keeps Claude behind
-[`scripts/claude-review.sh`](/home/zh/src/codex-plugin/scripts/claude-review.sh)
+[`scripts/claude-review.sh`](scripts/claude-review.sh)
 and treats the result as external review output, not a native subagent.

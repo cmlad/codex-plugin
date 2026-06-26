@@ -32,7 +32,7 @@ You need an implementation plan before proceeding. Obtain it from one of these s
 2. **Linear ticket**: if a Linear ticket ID or URL appears in `$ARGUMENTS`, read that ticket's comments with the Linear MCP tools and look for a comment starting with `## Implementation Plan`.
 3. **`plan.md`**: if neither of the above yields a plan, check whether `plan.md` exists in the repository root and read it.
 
-If no plan is found from any source, tell the user to run `@codex-plugin:plan-feature` first and stop.
+If no plan is found from any source, tell the user to run `@chris-plugin:plan-feature` first and stop.
 
 Once you have the plan, proceed.
 
@@ -124,11 +124,11 @@ Once the review loop converges, tell the user:
 
 ## Step 7: Verify CI (MANDATORY - DO NOT SKIP)
 
-You MUST run the `@codex-plugin:pr-green` skill now.
+You MUST run the `@chris-plugin:pr-green` skill now.
 
 Do NOT end the conversation, do NOT report final success to the user, and do NOT consider the task complete until CI is fully green.
 
-If checks fail or `pr-green` reports actionable unresolved review feedback, feed that back to the Implementation Agent to fix, push, perform Step 4, and then run `@codex-plugin:pr-green` again until all checks pass or the CI skill conclusively reports unrelated blockers.
+If checks fail or `pr-green` reports actionable unresolved review feedback, feed that back to the Implementation Agent to fix, push, perform Step 4, and then run `@chris-plugin:pr-green` again until all checks pass or the CI skill conclusively reports unrelated blockers.
 
 ## Important Notes
 

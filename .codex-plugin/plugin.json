@@ -1,5 +1,5 @@
 {
-  "name": "codex-plugin",
+  "name": "chris-plugin",
   "version": "1.1.4",
   "description": "Codex-native migration of shared feature planning, implementation, review, and CI workflows.",
   "author": {
@@ -18,8 +18,8 @@
   ],
   "skills": "./skills/",
   "interface": {
-    "displayName": "Codex Workflows",
-    "shortDescription": "Shared feature, review, and CI workflows for Codex.",
+    "displayName": "Chris Plugin",
+    "shortDescription": "Chris Plugin",
     "longDescription": "Codex-native planning, implementation, review, and CI workflows bundled as an installable local plugin.",
     "developerName": "cmlad",
     "category": "Developer Tools",
@@ -31,8 +31,8 @@
     "privacyPolicyURL": "https://github.com/cmlad/codex-plugin",
     "termsOfServiceURL": "https://github.com/cmlad/codex-plugin",
     "defaultPrompt": [
-      "Use @codex-plugin:feature to ship a feature end to end.",
-      "Use @codex-plugin:review to tighten up the current branch.",
+      "Use @chris-plugin:feature to ship a feature end to end.",
+      "Use @chris-plugin:review to tighten up the current branch.",
       "Explain how to wire this plugin into ~/.codex."
     ],
     "brandColor": "#0F766E"

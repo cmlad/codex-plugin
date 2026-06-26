@@ -22,7 +22,7 @@ Follow these steps precisely:
 
 ## Step 1: Plan the Feature
 
-Run the `@codex-plugin:plan-feature` skill with the following arguments:
+Run the `@chris-plugin:plan-feature` skill with the following arguments:
 
 **$ARGUMENTS**
 
@@ -30,7 +30,7 @@ Wait for it to complete. It will produce a finalized plan and output the full pl
 
 ## Step 2: Implement the Feature
 
-Run the `@codex-plugin:implement-feature` skill. Pass it both the original task description and the full plan text from Step 1:
+Run the `@chris-plugin:implement-feature` skill. Pass it both the original task description and the full plan text from Step 1:
 
 > $ARGUMENTS
 >

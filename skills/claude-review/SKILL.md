@@ -7,7 +7,7 @@ description: Run an opt-in external Claude Code CLI review of the current branch
 
 Use this skill when the user asks for a Claude review, external Claude review, or cross-check of the current branch.
 
-This skill is a thin orchestrator around the Claude Code CLI. It must run the bundled `scripts/claude-review.sh` wrapper relative to this skill directory and display Claude's review to the user.
+This skill is a thin orchestrator around the Claude Code CLI. It must run the bundled `scripts/claude-review.sh` wrapper with `bash`, resolving the script relative to this skill directory, and display Claude's review to the user.
 
 ## Step 1: Obtain the Plan
 
@@ -21,24 +21,24 @@ If no plan is available, tell the user that `claude-review` needs an implementat
 
 ## Step 2: Run Claude
 
-Resolve `scripts/claude-review.sh` relative to this skill directory, then run it from the repository root being reviewed.
+Resolve `scripts/claude-review.sh` relative to this skill directory, then run it with `bash` from the repository root being reviewed.
 
 For `plan.md`:
 
 ```bash
-<skill-dir>/scripts/claude-review.sh --plan-file plan.md
+bash <skill-dir>/scripts/claude-review.sh --plan-file plan.md
 ```
 
 For an inline or externally fetched plan, pass it via stdin:
 
 ```bash
-printf '%s\n' "$PLAN_TEXT" | <skill-dir>/scripts/claude-review.sh --plan-file -
+printf '%s\n' "$PLAN_TEXT" | bash <skill-dir>/scripts/claude-review.sh --plan-file -
 ```
 
 If the user specifies a base branch or ref, pass it explicitly:
 
 ```bash
-<skill-dir>/scripts/claude-review.sh --base origin/main --plan-file plan.md
+bash <skill-dir>/scripts/claude-review.sh --base origin/main --plan-file plan.md
 ```
 
 The wrapper sends Claude:
